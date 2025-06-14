@@ -1,7 +1,7 @@
 "use client"
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { BiHome, BiSearch } from 'react-icons/bi'
+import {  BiSearch } from 'react-icons/bi'
 import { HiHome } from 'react-icons/hi'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'

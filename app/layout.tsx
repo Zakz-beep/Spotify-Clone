@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import {Figtree } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
-import { SupabaseClient } from "@supabase/supabase-js";
+
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";

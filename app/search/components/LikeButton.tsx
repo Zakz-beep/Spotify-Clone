@@ -1,6 +1,6 @@
 "use client"
 import useAuthModal from '@/hooks/useAuthModal'
-import { useSession, useSessionContext } from '@supabase/auth-helpers-react'
+import { useSessionContext } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useUser } from '@/hooks/useUser'

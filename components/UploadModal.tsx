@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Modal from './Modal'
 import useUploadModal from '@/hooks/useUploadModal'
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form"
-import { title } from 'process'
+
 import Input from './Input'
 import Button from './Button'
 import toast from 'react-hot-toast'

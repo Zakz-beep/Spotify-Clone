@@ -25,7 +25,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     const player = usePlayer()
     const [volume, setVolume] = useState(1)
     
-    const [play, { pause, sound, stop }] = useSound(
+    const [play, { pause, sound }] = useSound(
         songUrl, {
             volume: volume,
             onplay: () => setIsPlaying(true),
@@ -116,59 +116,84 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
 
     return (
-        <div className='grid grid-cols-2 md:grid-cols-3 h-full'>
-            <div className="flex w-full justify-start">
-                <div className="flex items-center gap-x-4">
-                    <MediaItem data={song} />
-                    <LikeButton songId={song.id} />
-                </div>
+        <div className='flex flex-col h-full'>
+            {/* Mobile Progress Bar - Top */}
+            <div className="flex md:hidden w-full px-4 pb-2">
+                <ProgressBar 
+                    currentTime={currentTime}
+                    duration={duration}
+                    onSeek={handleSeek}
+                />
             </div>
             
-            <div className="flex md:hidden col-auto w-full justify-end items-center">
-                <div onClick={handlePlay} className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer ml-auto">
-                    <Icon size={30} className='text-black' />
+            {/* Main Player Content */}
+            <div className='grid grid-cols-2 md:grid-cols-3 flex-1'>
+                <div className="flex w-full justify-start">
+                    <div className="flex items-center gap-x-4">
+                        <MediaItem data={song} />
+                        <LikeButton songId={song.id} />
+                    </div>
                 </div>
-            </div>
-            
-            <div className="hidden h-full md:flex flex-col justify-center items-center w-full max-w-[722px] gap-y-2">
-                {/* Control buttons */}
-                <div className="flex items-center gap-x-6">
+                
+                {/* Mobile Controls */}
+                <div className="flex md:hidden col-auto w-full justify-end items-center gap-x-2">
                     <AiFillStepBackward 
                         onClick={onPlayPrevious} 
-                        size={30} 
+                        size={24} 
                         className='text-neutral-400 cursor-pointer hover:text-white transition' 
                     />
-                    <div 
-                        onClick={handlePlay} 
-                        className="flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer hover:bg-neutral-800/50 transition"
-                    >
+                    <div onClick={handlePlay} className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer">
                         <Icon size={30} className='text-black' />
                     </div>
                     <AiFillStepForward 
                         onClick={onPlayNext} 
-                        size={30} 
+                        size={24} 
                         className='text-neutral-400 cursor-pointer hover:text-white transition' 
                     />
                 </div>
                 
-                {/* Progress bar */}
-                <div className="w-full max-w-md">
-                    <ProgressBar 
-                        currentTime={currentTime}
-                        duration={duration}
-                        onSeek={handleSeek}
-                    />
+                {/* Desktop Controls */}
+                <div className="hidden h-full md:flex flex-col justify-center items-center w-full max-w-[722px] gap-y-2">
+                    {/* Control buttons */}
+                    <div className="flex items-center gap-x-6">
+                        <AiFillStepBackward 
+                            onClick={onPlayPrevious} 
+                            size={30} 
+                            className='text-neutral-400 cursor-pointer hover:text-white transition' 
+                        />
+                        <div 
+                            onClick={handlePlay} 
+                            className="flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer hover:bg-neutral-800/50 transition"
+                        >
+                            <Icon size={30} className='text-black' />
+                        </div>
+                        <AiFillStepForward 
+                            onClick={onPlayNext} 
+                            size={30} 
+                            className='text-neutral-400 cursor-pointer hover:text-white transition' 
+                        />
+                    </div>
+                    
+                    {/* Desktop Progress bar */}
+                    <div className="w-full max-w-md">
+                        <ProgressBar 
+                            currentTime={currentTime}
+                            duration={duration}
+                            onSeek={handleSeek}
+                        />
+                    </div>
                 </div>
-            </div>
-            
-            <div className="hidden md:flex w-full justify-end pr-2">
-                <div className="flex items-center gap-x-2 w-[120px]">
-                    <VolumeIcon 
-                        onClick={toggleMute} 
-                        className='cursor-pointer hover:opacity-75 transition' 
-                        size={34} 
-                    />
-                    <Slider value={volume} onChange={(value) => setVolume(value)} />
+                
+                {/* Volume Controls */}
+                <div className="hidden md:flex w-full justify-end pr-2">
+                    <div className="flex items-center gap-x-2 w-[120px]">
+                        <VolumeIcon 
+                            onClick={toggleMute} 
+                            className='cursor-pointer hover:opacity-75 transition' 
+                            size={34} 
+                        />
+                        <Slider value={volume} onChange={(value) => setVolume(value)} />
+                    </div>
                 </div>
             </div>
         </div>
